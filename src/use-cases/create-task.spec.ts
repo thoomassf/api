@@ -12,21 +12,21 @@ describe("Create Task Use Case", () => {
     tasksRepository = new InMemoryTasksRepository();
     usersRepository = new InMemoryUsersRepository();
     sut = new CreateTaskUseCase(tasksRepository, usersRepository);
+  });
 
-    await usersRepository.create({
+  it("should be able to create a new task", async () => {
+    const user = await usersRepository.create({
       id: "user-01",
       name: "John Doe",
       email: "johndoe@example.com",
       password_hash: "123456",
     });
-  });
 
-  it.skip("should be able to create a new task", async () => {
     const { task } = await sut.execute({
       title: "Task 01",
       description: "Task 01 description",
       status: "TODO",
-      userId: "user-01",
+      userId: user.id,
     });
 
     expect(task.id).toEqual(expect.any(String));

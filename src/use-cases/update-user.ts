@@ -29,7 +29,6 @@ export class UpdateUserUseCase {
     }
 
     const updatedUser = await this.usersRepository.update({
-      id: userId,
       name,
       email,
       password_hash,
